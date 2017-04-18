@@ -6,6 +6,14 @@
 
 <ul>
     <li ng-repeat='video in videos'>
-        <a href="/#/video/{{video._id}}">{{video.title}}</a>
+        <!-- link to edit video -->
+        <a href="/#/video/{{video._id}}">
+            {{video.title}}
+        </a>
+        <!-- delete video -->
+        <a href="/#/video/delete/{{video._id}}">
+            <!-- render icon -->
+            <i class="glyphicon glyphicon-remove"></i>
+        </a>
     </li>
 </ul>

@@ -58,5 +58,14 @@ router.put('/:id', function(req, res){
     });
 });
 
+// DELETE VIDEO
+router.delete('/:id', function(req, res) {
+    var collection = db.get('videos');
+    collection.remove({ _id: req.params.id }, function(err, video){
+        if (err) throw err;
+      	res.json(video);
+    });
+});
+
 // RETURN ROUTER OBJ WITH SOME ROUTES ON IT
 module.exports = router;
