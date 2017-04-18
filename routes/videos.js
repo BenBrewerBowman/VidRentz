@@ -9,6 +9,7 @@ var monk = require('monk');
 var db = monk('localhost:27017/vidzy');
 
 // REGISTER SOME ROUTES ON IT
+// RETRIEVE VIDEO
 router.get('/', function(req, res) {
   var collection = db.get('videos');
   // filtering criteria, error first callback
@@ -20,9 +21,34 @@ router.get('/', function(req, res) {
   });
 });
 
+// NEW ARTICLE
 router.post('/', function(req, res){
     var collection = db.get('videos');
     collection.insert({
+        title: req.body.title,
+        description: req.body.description
+    }, function(err, video){
+        if (err) throw err;
+        res.json(video);
+    });
+});
+
+// EDIT VIDEO
+// return obj of video to edit
+router.get('/:id', function(req, res) {
+    var collection = db.get('videos');
+    collection.findOne({ _id: req.params.id }, function(err, video){
+        if (err) throw err;
+      	res.json(video);
+    });
+});
+// update the video with edit changes
+router.put('/:id', function(req, res){
+    var collection = db.get('videos');
+    collection.update({
+        _id: req.params.id
+    },
+    {
         title: req.body.title,
         description: req.body.description
     }, function(err, video){
